@@ -2,7 +2,7 @@
 An Instagram-inspired social media app built using Android Studio, Firebase, and Java. The app allows users to sign up, log in, upload photos, view others' posts, and interact with content through likes and comments.
 
 ## 🚀 Features
-User Authentication: Users can sign up, log in using email and password, and even log out of the app.
+User Authentication: Users can sign up, log in using email and password, and even log out of the app. <br/>
 User Profiles: Users can create and edit profiles with a profile picture, bio, and view their own posts in a grid format. Profile pages also show the number of posts, followers, and following.
 Privacy Settings (Public/Private Accounts):
   ● Public Accounts: Anyone can view posts, reels, and follow the user.
