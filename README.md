@@ -1,14 +1,15 @@
-## Instagram Clone
+### Instagram Clone
 An Instagram-inspired social media app built using Android Studio, Firebase, and Java. The app allows users to sign up, log in, upload photos, view others' posts, and interact with content through likes and comments.
 
-🚀 Features
+## 🚀 Features
 User Authentication: Signup and login using phone number, username, and password.
 Realtime Database: Store and retrieve user details, posts, likes, and comments.
 Photo Uploads: Users can upload photos and captions.
 Likes & Comments: Interact with posts via likes and comments.
 Profile Management: Update profile info, view uploaded photos.
 Feed: A timeline of posts by other users.
-🛠️ Technologies Used
+
+## 🛠️ Technologies Used
 Android Studio: Main IDE for Android development.
 Java: Programming language for app logic.
 Firebase:
