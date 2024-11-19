@@ -13,6 +13,9 @@
         android:theme="@style/Theme.InstagramClone"
         tools:targetApi="31">
         <activity
+            android:name=".FollowRequest"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
@@ -23,8 +26,7 @@
         </activity>
         <activity
             android:name=".Signup"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

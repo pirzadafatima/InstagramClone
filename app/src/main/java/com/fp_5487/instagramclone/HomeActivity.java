@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
                     setTabIcon(tab, R.drawable.ic_add_post);  // Add Post icon
                     break;
                 case 3:
-                    setTabIcon(tab, R.drawable.ic_reels);  // Reels icon
+                    setTabIcon(tab, R.drawable.ic_reel);  // Reels icon
                     break;
                 case 4:
                     setTabIcon(tab, R.drawable.ic_profile);  // Profile icon
