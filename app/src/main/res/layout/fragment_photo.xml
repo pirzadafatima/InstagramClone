@@ -1,0 +1,60 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Camera Preview -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/preview_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!-- ImageView to Display Captured Image -->
+    <ImageView
+        android:id="@+id/image_view_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:visibility="gone"/> <!-- Initially hidden -->
+
+    <!-- LinearLayout for Cancel and Next Buttons, Positioned on Top of the ImageView -->
+    <LinearLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="16dp"
+        android:visibility="gone"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/cancel_button_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="70dp"/> <!-- Adds space between Cancel and Next -->
+
+        <TextView
+            android:id="@+id/next_button_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textSize="16sp"
+            android:textColor="@color/blue"/>
+    </LinearLayout>
+
+    <!-- Circular Take Photo Button at the Bottom Center -->
+    <Button
+        android:id="@+id/take_photo_button"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/circular_button"
+        android:text=""
+        android:contentDescription="Take Photo" />
+</FrameLayout>
