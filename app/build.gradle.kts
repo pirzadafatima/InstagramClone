@@ -31,7 +31,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
-
 dependencies {
 
     implementation(libs.appcompat)
@@ -48,6 +47,8 @@ dependencies {
     implementation ("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-auth")
     implementation ("com.google.firebase:firebase-appcheck")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     val camerax_version = "1.2.2";
     val picasso_version ="2.8";

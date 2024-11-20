@@ -2,14 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="8dp"
         android:background="@color/white">
 
-        <!-- Top bar with Cancel and Next -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,8 +49,8 @@
         <!-- Selected Image Display -->
         <ImageView
             android:id="@+id/selected_image"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
             android:scaleType="centerCrop"
             android:layout_marginBottom="8dp"
             android:background="@color/light_gray" />
@@ -66,19 +66,15 @@
                 android:id="@+id/select_multiple_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select Multiple"
-                android:padding="8dp"
-                android:textSize="14sp"
-                android:textColor="@color/black" />
+                android:text="Select Multiple" />
+
         </LinearLayout>
 
-        <!-- RecyclerView for displaying images -->
+        <!-- RecyclerView for Image Thumbnails -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/image_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:scrollbars="vertical" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
     </LinearLayout>
-
 </FrameLayout>
