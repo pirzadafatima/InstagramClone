@@ -1,17 +1,26 @@
 package com.fp_5487.instagramclone;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.Manifest;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -20,17 +29,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LibraryFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private TextView nextButton;
     private ImageAdapter imageAdapter;
     private List<String> imagePaths;  // List of image file paths
     private ImageView selectedImageView;
     private static final int REQUEST_PERMISSION = 1;
-
+    private SharedPreferences sharedPreferences;
     public LibraryFragment() {
         // Required empty constructor
     }
@@ -39,6 +50,7 @@ public class LibraryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_library, container, false);
 
+        nextButton = view.findViewById(R.id.next_button);
         selectedImageView = view.findViewById(R.id.selected_image);
         recyclerView = view.findViewById(R.id.image_recycler_view);
 
@@ -49,6 +61,26 @@ public class LibraryFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
         recyclerView.setAdapter(imageAdapter);
 
+
+        nextButton.setOnClickListener(v -> {
+            // Get the Bitmap from the ImageView
+            selectedImageView.setDrawingCacheEnabled(true); // Enable the drawing cache
+            selectedImageView.buildDrawingCache(); // Build the drawing cache
+            Bitmap bitmap = ((BitmapDrawable) selectedImageView.getDrawable()).getBitmap(); // Get the Bitmap
+
+            // Encode the Bitmap to Base64
+            String encodedImage = encodeBitmapToBase64(bitmap);
+
+            // Save the Base64 encoded image in SharedPreferences
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("image_prefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("imageBase64", encodedImage);
+            editor.apply(); // Commit the changes
+
+            // Optionally, open the next activity
+            Intent intent = new Intent(requireContext(), PostActivity.class);
+            startActivity(intent);
+        });
         // Check for permission and request if not granted
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             // For Android 13 and above, use READ_MEDIA_IMAGES
@@ -140,6 +172,12 @@ public class LibraryFragment extends Fragment {
         }
     }
 
+    private String encodeBitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream); // Compress the image
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT); // Encode as Base64
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
