@@ -1,5 +1,6 @@
 package com.fp_5487.instagramclone;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -11,16 +12,20 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.fp_5487.instagramclone.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileFragment extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private ProfileFragmentAdapter fragmentAdapter;
+    private FirebaseAuth mAuth;
 
     @Nullable
     @Override
@@ -35,6 +40,14 @@ public class ProfileFragment extends Fragment {
         // Set up ViewPager2 with the fragments
         fragmentAdapter = new ProfileFragmentAdapter(this);
         viewPager.setAdapter(fragmentAdapter);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        // Set up the Sign Out button
+        Button signOutButton = view.findViewById(R.id.signout);
+        signOutButton.setOnClickListener(v -> {
+            signOutUser();
+        });
 
         // Link TabLayout with ViewPager2
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
@@ -60,5 +73,18 @@ public class ProfileFragment extends Fragment {
         icon.setBounds(0, 0, iconSize, iconSize);
 
         tab.setIcon(icon);
+    }
+
+    private void signOutUser() {
+        mAuth.signOut();
+        Toast.makeText(getContext(), "Signed out successfully!", Toast.LENGTH_SHORT).show();
+
+        // Redirect user to LoginActivity
+        Intent intent = new Intent(getContext(), Login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
+        // Optional: Close the current activity to prevent back navigation
+        requireActivity().finish();
     }
 }
