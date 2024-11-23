@@ -5,7 +5,7 @@ An Instagram-inspired social media app built using Android Studio, Firebase, and
 _User Authentication:_ Users can sign up, log in using email and password, and even log out of the app. <br/><br/>
 _User Profiles:_ Users can create and edit profiles with a profile picture, bio, and view their own posts in a grid format. Profile pages also show the number of posts, followers, and following. <br/><br/>
 _Privacy Settings (Public/Private Accounts):_ <br/>
-  ● Public Accounts: Anyone can view posts, reels, and follow the user. 
+  ● Public Accounts: Anyone can view posts, reels, and follow the user. <br/>
   ● Private Accounts: Only approved followers can see the user’s posts and reels. When someone requests to follow a private account, the account owner must approve or deny the request. <br/>
 _Photo and Reels Upload:_ Users can upload images or short videos (Reels, up to 30 seconds) with captions either from their devices or from their camera. Photos and Reels will appear in the user’s feed and profile grid, and can be interacted with based on account privacy settings. <br/><br/>
 _Feed:_ A scrollable feed shows posts (photos and Reels) from followers of a specific user. Each post will display the image/video, caption, username, and interaction options (like, comment). For private accounts, only approved followers will see their posts. <br/><br/>
