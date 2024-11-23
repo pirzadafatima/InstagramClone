@@ -49,14 +49,25 @@
         android:textSize="16sp"
         android:fontFamily="@font/inter_24pt_regular"
         android:textColor="@color/black"
-        android:layout_marginBottom="60dp" />
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/forgotPassword"
+        android:text="Forgot Password?"
+        android:fontFamily="@font/akatab_regular"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        android:layout_gravity="right"
+        android:layout_marginBottom="40dp"/>
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log in"
-        android:backgroundTint="#3797EF"
+        android:backgroundTint="@color/blue"
         android:fontFamily="@font/inter_24pt_regular"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -112,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Signup"
-            android:textColor="#007AFF"
+            android:textColor="@color/blue"
             android:fontFamily="@font/inter_24pt_regular"
             android:textSize="14sp" />
     </LinearLayout>

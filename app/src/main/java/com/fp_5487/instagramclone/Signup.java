@@ -156,7 +156,7 @@ public class Signup extends AppCompatActivity {
     }
 
     private void saveUserToDatabase(final String userId, final String email, final String fullName, final String username) {
-        User user = new User(email, 0, "", username, fullName, "", "", "", 0, 0);
+        User user = new User(email, username, fullName);
 
         dbRef.child(userId).setValue(user)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
