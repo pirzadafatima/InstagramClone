@@ -45,6 +45,7 @@
         android:background="@drawable/button_blue"
         android:text="Confirm"
         android:textSize="12dp"
+        style="@style/Theme.CustomButtomStyle"
         android:textColor="@android:color/white"
         android:id="@+id/confirmButton"/>
 
@@ -56,5 +57,6 @@
         android:text="Delete"
         android:textColor="@android:color/black"
         android:textSize="12dp"
+        style="@style/Theme.CustomButtomStyle"
         android:id="@+id/deleteButton"/>
 </LinearLayout>

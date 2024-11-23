@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_saved"
+        android:icon="@drawable/ic_bookmark"
+        android:title="Saved" />
+
+    <item
+        android:id="@+id/nav_discover_people"
+        android:icon="@drawable/ic_discover_people"
+        android:title="Discover People" />
+
+    <item
+        android:id="@+id/nav_dark_mode"
+        android:icon="@drawable/ic_dark_mode"
+        android:title="Dark Mode" />
+
+    <!-- Divider -->
+    <item
+        android:id="@+id/nav_divider"
+        android:enabled="false"
+        android:title="" />
+
+    <item
+        android:id="@+id/nav_sign_out"
+        android:icon="@drawable/ic_sign_out"
+        android:title="Sign Out" />
+</menu>
+

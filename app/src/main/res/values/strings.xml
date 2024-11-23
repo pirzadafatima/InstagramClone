@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">InstagramClone</string>
+    <string-array name="gender_options">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="personal_details">Meta uses this information to verify your identity and to keep our community safe.You decide what personal details you make visible to others</string>
+    <string name="Account_ownership_and_control">Manage your data, modify your legacy contact, and deactivate or delete your accounts and profiles.</string>
 </resources>
