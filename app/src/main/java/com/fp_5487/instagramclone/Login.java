@@ -34,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Login extends AppCompatActivity {
     private EditText etUsername, etPassword;
     private Button btnLogin;
-    private TextView tvSignup;
+    private TextView tvSignup, forgotPassword;
     private ImageView back;
 
     private FirebaseAuth mAuth;
@@ -52,6 +52,7 @@ public class Login extends AppCompatActivity {
         tvSignup = findViewById(R.id.tvSignup);
         back = findViewById(R.id.back);
         mAuth = FirebaseAuth.getInstance();
+        forgotPassword = findViewById(R.id.forgotPassword);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Logging in...");
@@ -71,6 +72,55 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+                builder.setTitle("Reset Password");
+                builder.setMessage("Enter your registered email to receive a password reset link:");
+
+                final EditText input = new EditText(Login.this);
+                input.setHint("Email");
+                input.setInputType(android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                input.setPadding(100, 20, 50, 20);
+                builder.setView(input);
+
+                builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String email = input.getText().toString().trim();
+                        if (TextUtils.isEmpty(email)) {
+                            Toast.makeText(Login.this, "Email is required", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(Login.this, "Password reset link sent to your email", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    String errorMessage = task.getException() != null ? task.getException().getMessage() : "Error occurred";
+                                    Toast.makeText(Login.this, "Failed to send reset link: " + errorMessage, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
