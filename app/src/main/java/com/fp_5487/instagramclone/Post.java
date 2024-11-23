@@ -2,14 +2,18 @@ package com.fp_5487.instagramclone;
 
 import android.graphics.Bitmap;
 
+import java.io.File;
+
 public class Post {
     private String description;
     private String imageBase64;
     private String timestamp;
+    private File videoFile;
     private Bitmap imageBitmap;  // Added Bitmap field for decoded image
 
     // Default constructor required for Firebase
     public Post() {}
+
 
     // Constructor for creating a new Post
     public Post(String description, String imageBase64, String timestamp) {
@@ -50,4 +54,14 @@ public class Post {
     public void setImageBitmap(Bitmap imageBitmap) {
         this.imageBitmap = imageBitmap;
     }
+
+    public void setVideoFile(File videoFile) {
+        this.videoFile = videoFile;
+    }
+
+    public File getVideoFile() {
+        return this.videoFile;
+    }
+
+
 }

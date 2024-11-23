@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -19,6 +20,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         this.postList = postList;
     }
 
+    public PostAdapter(List<Post> postList, FragmentManager fragmentManager) {
+        this.postList = postList;
+    }
     @Override
     public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, parent, false);
