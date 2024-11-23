@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserPostsFragment">
+    tools:context=".TaggedPostsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/taggedRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="User Posts" />
+        android:padding="8dp"
+        android:clipToPadding="false" />
 
 </FrameLayout>

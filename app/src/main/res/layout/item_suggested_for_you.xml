@@ -40,6 +40,7 @@
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:text="Follow"
+        style="@style/Theme.CustomButtomStyle"
         android:background="@drawable/button_blue"
         android:textColor="@android:color/white" />
 </LinearLayout>

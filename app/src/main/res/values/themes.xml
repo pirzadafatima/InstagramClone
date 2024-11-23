@@ -11,13 +11,10 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
 
     </style>
-    <!-- Base application theme. -->
-    <style name="Base.Theme.InstagramClone" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.CustomButtomStyle" parent ="Widget.MaterialComponents.Button">
+    <item name="backgroundTint">@null</item>
+        <item name="android:backgroundTint">@null</item>
     </style>
 </resources>

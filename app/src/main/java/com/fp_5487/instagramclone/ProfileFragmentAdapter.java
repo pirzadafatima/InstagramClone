@@ -5,9 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class ProfileFragmentAdapter extends FragmentStateAdapter {
-
-    public ProfileFragmentAdapter(@NonNull ProfileFragment fragmentActivity) {
-        super(fragmentActivity);
+    public ProfileFragmentAdapter(@NonNull Fragment fragment) {
+        super(fragment);
     }
 
     @NonNull
@@ -15,16 +14,16 @@ public class ProfileFragmentAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new UserPostsFragment();
+                return new GridPostsFragment(); // First tab: Grid posts
             case 1:
-                return new UserTaggedPosts();
+                return new TaggedPostsFragment(); // Second tab: Tagged posts
             default:
-                return new UserPostsFragment();
+                return new GridPostsFragment();
         }
     }
 
     @Override
     public int getItemCount() {
-        return 2;  // Number of tabs
+        return 2; // Number of tabs
     }
 }

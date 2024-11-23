@@ -1,223 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Main Content -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_profile">
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <!-- Lock Icon -->
-            <ImageView
-                android:id="@+id/lockIcon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:contentDescription="Lock Icon"
-                android:src="@drawable/ic_lock"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <!-- Username -->
-            <TextView
-                android:id="@+id/profileUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="jacob_w"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textColor="@color/textColor"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/lockIcon"
-                android:layout_marginStart="4dp"
-                app:layout_constraintEnd_toStartOf="@id/dropdownIcon" />
-
-            <!-- Dropdown Icon -->
-            <ImageView
-                android:id="@+id/dropdownIcon"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:contentDescription="Dropdown Icon"
-                android:src="@drawable/ic_drop_down"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/profileUsername"
-                android:layout_marginStart="4dp" />
-
-            <!-- Menu Icon -->
-            <ImageView
-                android:id="@+id/menuIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="Menu Icon"
-                android:src="@drawable/ic_menu"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <!-- Header with Profile Image, Username, and Stats -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <!-- Profile Picture -->
-            <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_profile"
-                android:scaleType="centerCrop"
-                 />
-
-            <!-- Username and Stats -->
-            <!-- User Stats -->
-            <LinearLayout
-                android:layout_width="0dp"
+            <!-- Toolbar Section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:padding="8dp">
+
+                <!-- Lock Icon -->
+                <ImageView
+                    android:id="@+id/lockIcon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="Lock Icon"
+                    android:src="@drawable/ic_lock"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Username -->
+                <TextView
+                    android:id="@+id/profileUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="jacob_w"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:layout_marginStart="4dp"
+                    app:layout_constraintStart_toEndOf="@id/lockIcon"
+                    app:layout_constraintEnd_toStartOf="@id/dropdownIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <!-- Dropdown Icon -->
+                <ImageView
+                    android:id="@+id/dropdownIcon"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:contentDescription="Dropdown Icon"
+                    android:src="@drawable/ic_drop_down"
+                    android:layout_marginStart="4dp"
+                    app:layout_constraintStart_toEndOf="@id/profileUsername"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <!-- Menu Icon -->
+                <ImageView
+                    android:id="@+id/menuIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Menu Icon"
+                    android:src="@drawable/ic_menu"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Header with Profile Image, Username, and Stats -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center_vertical">
 
-                <!-- Posts -->
+                <!-- Profile Picture -->
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_profile"
+                    android:scaleType="centerCrop"
+                    />
+
+                <!-- Username and Stats -->
+                <!-- User Stats -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/postsCount"
-                        android:layout_width="wrap_content"
+                    <!-- Posts -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="54"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:textColor="@color/textColor"
-                        android:gravity="center" />
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/postsCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="54"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textColor="@color/textColor"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Posts"
+                            android:textColor="@color/textColor"
+                            android:gravity="center" />
+                    </LinearLayout>
+
+                    <!-- Followers -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Posts"
-                        android:textColor="@color/textColor"
-                        android:gravity="center" />
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/followersCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="834"
+                            android:textColor="@color/textColor"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/textColor"
+                            android:text="Followers"
+                            android:gravity="center" />
+                    </LinearLayout>
+
+                    <!-- Following -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/followingCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="162"
+                            android:textStyle="bold"
+                            android:textColor="@color/textColor"
+                            android:textSize="18sp"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Following"
+                            android:textColor="@color/textColor"
+                            android:gravity="center" />
+                    </LinearLayout>
                 </LinearLayout>
 
-                <!-- Followers -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/followersCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="834"
-                        android:textColor="@color/textColor"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:gravity="center" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/textColor"
-                        android:text="Followers"
-                        android:gravity="center" />
-                </LinearLayout>
-
-                <!-- Following -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/followingCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="162"
-                        android:textStyle="bold"
-                        android:textColor="@color/textColor"
-                        android:textSize="18sp"
-                        android:gravity="center" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Following"
-                        android:textColor="@color/textColor"
-                        android:gravity="center" />
-                </LinearLayout>
             </LinearLayout>
 
-        </LinearLayout>
+            <!-- Full Name -->
+            <TextView
+                android:id="@+id/FullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jacob Welsh"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="18sp" />
 
-        <!-- Full Name -->
-        <TextView
-            android:id="@+id/FullName"
+            <!-- Bio Section -->
+            <TextView
+                android:id="@+id/bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textColor"
+                android:text="Digital goodies designer @pixels Everything is designed."
+                android:layout_marginTop="8dp" />
+
+            <!-- Edit Profile Button -->
+            <Button
+                android:id="@+id/editProfileButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit Profile"
+                android:textAllCaps="false"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/textColor" />
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jacob Welsh"
-            android:textColor="@color/textColor"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+            android:id="@+id/signout"
+            android:text="Sign Out"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="16dp" />
 
-        <!-- Bio Section -->
-        <TextView
-            android:id="@+id/bio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/textColor"
-            android:text="Digital goodies designer @pixels Everything is designed."
-            android:layout_marginTop="8dp" />
+            <!-- TabLayout -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
 
-        <!-- Edit Profile Button -->
-        <Button
-            android:id="@+id/editProfileButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Edit Profile"
-            android:textAllCaps="false"
-            android:backgroundTint="@android:color/transparent"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/textColor" />
+            <!-- ViewPager2 -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-        <!-- TabLayout -->
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
 
-        <!-- ViewPager2 -->
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
-    </LinearLayout>
+        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
 
-</FrameLayout>
+    <!-- Navigation Drawer -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/navigation_menu" />
+</androidx.drawerlayout.widget.DrawerLayout>
