@@ -14,7 +14,7 @@
 
     </style>
     <style name="Theme.CustomButtomStyle" parent ="Widget.MaterialComponents.Button">
-    <item name="backgroundTint">@null</item>
+        <item name="backgroundTint">@null</item>
         <item name="android:backgroundTint">@null</item>
     </style>
 </resources>
