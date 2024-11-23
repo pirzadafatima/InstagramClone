@@ -84,7 +84,7 @@ public class Login extends AppCompatActivity {
                 final EditText input = new EditText(Login.this);
                 input.setHint("Email");
                 input.setInputType(android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                input.setPadding(100, 20, 50, 20);
+                input.setPadding(70, 20, 50, 20);
                 builder.setView(input);
 
                 builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
