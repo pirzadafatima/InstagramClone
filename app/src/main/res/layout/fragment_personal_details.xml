@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PersonalDetailsFragment">
+    tools:context=".PersonalDetailsFragment"
+    android:id="@+id/fragment_personalDetails">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,8 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:elevation="4dp">
+            android:background="#FFFFFF">
 
             <ImageView
                 android:id="@+id/back_button"
@@ -42,6 +42,7 @@
                 android:paddingEnd="4dp"/>
         </LinearLayout>
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,64 +63,106 @@
 
         <!-- Contact Info -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="12dp"
             android:background="@drawable/bg_rounded_card"
             android:layout_margin="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Contact Info"
                 android:textSize="16sp"
+                android:textColor="#979797"
                 android:layout_weight="1" />
 
+            <!-- This TextView will display the email fetched from Firebase -->
             <TextView
+                android:id="@+id/email_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="taniawaseem132@gmail.com"
-                android:textColor="#888"
+                android:textColor="#000000"
                 android:padding="0dp" />
         </LinearLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_arrow"
+                android:id="@+id/contact_info_edit"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
 
+        <!-- Date of Birth -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="12dp"
             android:background="@drawable/bg_rounded_card"
             android:layout_margin="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date of Birth"
                 android:textSize="16sp"
+                android:textColor="#979797"
                 android:layout_weight="1" />
 
+            <!-- This TextView will display the date of birth fetched from Firebase -->
             <TextView
+                android:id="@+id/dob_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="21 March 2003"
-                android:textColor="#888"
+                android:textColor="#000"
                 android:padding="0dp" />
         </LinearLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_arrow"
+            android:id="@+id/dob_edit"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
 
+        <!-- Account Ownership Info -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:background="@drawable/bg_rounded_card"
+        android:layout_margin="8dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp"
-            android:background="@drawable/bg_rounded_card"
-            android:layout_margin="8dp">
-
+            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Account ownership and control"
                 android:textSize="16sp"
+                android:textColor="#979797"
                 android:layout_weight="1" />
 
             <TextView
@@ -127,9 +170,19 @@
                 android:layout_height="wrap_content"
                 android:padding="0dp"
                 android:text="@string/Account_ownership_and_control"
-                android:textColor="#888" />
+                android:textColor="#000" />
         </LinearLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_arrow"
+            android:id="@+id/account_info_edit"
+            android:layout_gravity="center_vertical"/>
     </LinearLayout>
-
+    </LinearLayout>
 
 </FrameLayout>
