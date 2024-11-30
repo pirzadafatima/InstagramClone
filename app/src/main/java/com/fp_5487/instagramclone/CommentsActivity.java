@@ -24,7 +24,7 @@ public class CommentsActivity extends AppCompatActivity {
 
     private RecyclerView commentsRecyclerView;
     private EditText commentInput;
-    private ImageView sendButton;
+    private ImageView sendButton, backButton;
 
     private DatabaseReference commentsRef;
     private ArrayList<Comment> commentsList;
@@ -36,12 +36,14 @@ public class CommentsActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_add_comment);
 
         // Initialize views
+
         commentsRecyclerView = findViewById(R.id.comments_recycler_view);
         commentInput = findViewById(R.id.comment_input);
         sendButton = findViewById(R.id.send_button);
+        backButton = findViewById(R.id.back_button);
 
-        // Firebase reference (adjust for post ID if necessary)
-        commentsRef = FirebaseDatabase.getInstance().getReference("comments");
+        String postId = getIntent().getStringExtra("postId");
+        commentsRef = FirebaseDatabase.getInstance().getReference("comments").child(postId);
 
         commentsList = new ArrayList<>();
         adapter = new CommentsAdapter(commentsList);
@@ -57,6 +59,7 @@ public class CommentsActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 postComment();
             }
         });

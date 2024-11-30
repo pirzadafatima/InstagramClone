@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
         recyclerViewVideo.setLayoutManager(new LinearLayoutManager(getContext()));
 
         postList = new ArrayList<>();
-        postAdapter = new PostAdapter(postList);
+        postAdapter = new PostAdapter(getContext(), postList);
         recyclerView.setAdapter(postAdapter);
 
         reelList = new ArrayList<>();

@@ -12,12 +12,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import android.content.SharedPreferences;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 import java.util.UUID;
 
 public class PostActivity extends AppCompatActivity {
@@ -25,10 +27,12 @@ public class PostActivity extends AppCompatActivity {
     private ImageView postImageView;
     private EditText postDescriptionEditText;
     private Button postButton;
+    private List<String> taggedUsers;
 
     private DatabaseReference databaseReference;
 
     private String base64Image;
+    private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,9 @@ public class PostActivity extends AppCompatActivity {
 
         // Initialize Firebase Realtime Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("posts");
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        currentUserId = auth.getCurrentUser().getUid();
 
         // Retrieve the Base64 encoded image string from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("image_prefs", MODE_PRIVATE);
@@ -59,12 +66,12 @@ public class PostActivity extends AppCompatActivity {
                 Toast.makeText(PostActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
                 // Save the post to Firebase Realtime Database with Base64 image
-                savePostToDatabase(description, base64Image);
+                savePostToDatabase(description, base64Image, currentUserId);
             }
         });
     }
 
-    private void savePostToDatabase(String description, String base64Image) {
+    private void savePostToDatabase(String description, String base64Image, String userID) {
         if (base64Image == null) {
             Toast.makeText(this, "No image found to upload", Toast.LENGTH_SHORT).show();
             return;
@@ -75,7 +82,7 @@ public class PostActivity extends AppCompatActivity {
         String timestamp = String.valueOf(System.currentTimeMillis());
 
         // Create the Post object with Base64 image data and description
-        Post post = new Post(description, base64Image, timestamp);
+        Post post = new Post(postId, userID, description, base64Image, timestamp, "Example, Country", taggedUsers);
 
         // Save the post to Firebase Realtime Database
         if (postId != null) {

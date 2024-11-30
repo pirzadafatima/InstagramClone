@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">InstagramClone</string>
+    <string name="likes_count">%d likes</string>
     <string-array name="gender_options">
         <item>Male</item>
         <item>Female</item>
