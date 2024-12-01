@@ -11,11 +11,13 @@ import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class ReelsPostActivity extends AppCompatActivity {
 
@@ -23,7 +25,9 @@ public class ReelsPostActivity extends AppCompatActivity {
     private EditText postDescriptionEditText;
     private Button postButton;
 
+    private List<String> taggedUsers;
     private DatabaseReference databaseReference;
+    private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,9 @@ public class ReelsPostActivity extends AppCompatActivity {
 
         // Initialize Firebase Realtime Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("reels");
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        currentUserId = auth.getCurrentUser().getUid();
 
         // Retrieve the video URI from the Intent
         Intent intent = getIntent();
@@ -62,7 +69,7 @@ public class ReelsPostActivity extends AppCompatActivity {
 
                 if (base64Video != null) {
                     // Save the post to Firebase with Base64 video and description
-                    savePostToDatabase(description, base64Video);
+                    savePostToDatabase(description, base64Video, currentUserId);
                 } else {
                     Toast.makeText(ReelsPostActivity.this, "Failed to encode video", Toast.LENGTH_SHORT).show();
                 }
@@ -72,7 +79,7 @@ public class ReelsPostActivity extends AppCompatActivity {
         });
     }
 
-    private void savePostToDatabase(String description, String base64Video) {
+    private void savePostToDatabase(String description, String base64Video, String userID) {
         if (base64Video == null) {
             Toast.makeText(this, "No video found to upload", Toast.LENGTH_SHORT).show();
             return;
@@ -83,7 +90,7 @@ public class ReelsPostActivity extends AppCompatActivity {
         String timestamp = String.valueOf(System.currentTimeMillis());
 
         // Create a Post object with Base64 video data and description
-        Post post = new Post(description, base64Video, timestamp);
+        Post post = new Post(postId, userID, description, base64Video, timestamp, "Example, Country", taggedUsers);
 
         // Save the post to Firebase Realtime Database
         if (postId != null) {

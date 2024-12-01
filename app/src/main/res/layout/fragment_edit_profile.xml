@@ -56,94 +56,61 @@
             </LinearLayout>
 
             <!-- Name -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp">
-
-            <!-- Label inside the same box -->
-            <TextView
-                android:id="@+id/name_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name"
-                android:textColor="#555555"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/name_field"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Fatima Pirzada"
-                android:paddingTop="2dp"
-                android:textColor="#000000"
-                android:textSize="16sp" />
+                android:orientation="vertical"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/name_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textColor="#555555"
+                    android:textSize="14sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp">
+                <EditText
+                    android:id="@+id/name_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Full Name"
+                    android:paddingTop="2dp"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
-            <!-- Label inside the same box -->
-            <TextView
-                android:id="@+id/username_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Username"
-                android:textColor="#555555"
-                android:textSize="14sp" />
+            </LinearLayout>
 
-            <!-- Editable field -->
-            <EditText
-                android:id="@+id/username_field"
+            <!-- Username -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="pirzada_"
-                android:paddingTop="2dp"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-        </LinearLayout>
-            <!-- Pronouns -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp">
+                android:orientation="vertical"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp">
 
-            <!-- Label inside the same box -->
-            <TextView
-                android:id="@+id/pronouns_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pronouns"
-                android:textColor="#555555"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/username_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:textColor="#555555"
+                    android:textSize="14sp" />
 
-            <!-- Editable field -->
-            <EditText
-                android:id="@+id/pronouns_field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter your name"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:background="@android:color/transparent"
-                android:paddingTop="2dp" />
-
-        </LinearLayout>
-
+                <EditText
+                    android:id="@+id/username_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Username"
+                    android:paddingTop="2dp"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
             <!-- Bio -->
             <LinearLayout
@@ -154,7 +121,6 @@
                 android:padding="12dp"
                 android:layout_marginBottom="16dp">
 
-                <!-- Label inside the same box -->
                 <TextView
                     android:id="@+id/bio_label"
                     android:layout_width="wrap_content"
@@ -163,7 +129,6 @@
                     android:textColor="#555555"
                     android:textSize="14sp" />
 
-                <!-- Editable field -->
                 <EditText
                     android:id="@+id/bio_field"
                     android:layout_width="match_parent"
@@ -175,6 +140,33 @@
                     android:paddingTop="2dp" />
 
             </LinearLayout>
+
+            <!-- Website -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp">
+            <TextView
+                android:id="@+id/website_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Website"
+                android:textColor="#555555"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/website_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Website"
+                android:paddingTop="2dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+        </LinearLayout>
 
             <!-- Gender Dropdown -->
             <LinearLayout
@@ -194,14 +186,15 @@
                     android:textColor="#555555"
                     android:textSize="14sp" />
 
-            <Spinner
-                android:id="@+id/gender_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
+                <Spinner
+                    android:id="@+id/gender_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
 
-                 />
+                    />
             </LinearLayout>
+
             <!-- Personal Info Settings -->
             <TextView
                 android:id="@+id/personal_info"

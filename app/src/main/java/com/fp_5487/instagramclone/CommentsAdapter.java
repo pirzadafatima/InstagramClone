@@ -13,6 +13,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     private List<Comment> comments;
 
     public CommentsAdapter(List<Comment> comments) {
+
         this.comments = comments;
     }
 

@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">InstagramClone</string>
+    <string name="likes_count">%d likes</string>
     <string-array name="gender_options">
         <item>Male</item>
         <item>Female</item>
         <item>Other</item>
         <item>Prefer not to say</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="personal_details">Meta uses this information to verify your identity and to keep our community safe.You decide what personal details you make visible to others</string>
+    <string name="personal_details">Meta uses this information to verify your identity and to keep our community safe.You decide what personal details you make visible to others.</string>
     <string name="Account_ownership_and_control">Manage your data, modify your legacy contact, and deactivate or delete your accounts and profiles.</string>
+    <string name="contact_info">Manage your mobile numbers and email addresses to make sure that your contact info is accurate and up to date.</string>
+    <string name="dob">Providing your date of birth helps make sure that you get the right experience for your age.</string>
+    <string name="deleteAccount">Manage your account privacy by toggling between public and private modes or delete your account permanently.</string>
 </resources>

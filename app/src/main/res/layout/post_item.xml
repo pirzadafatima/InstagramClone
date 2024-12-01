@@ -3,21 +3,145 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/white"
+    android:layout_marginTop="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/profile"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circular_profile_bg"
+            android:contentDescription="Profile Picture" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/usernameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:fontFamily="@font/akatab_regular"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/locationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:fontFamily="@font/akatab_regular"
+                android:textSize="14sp"
+                android:textColor="#757575" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:padding="10dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/more"
+            android:contentDescription="More Options" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/postImageView"
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="400dp"
         android:scaleType="centerCrop"
-        android:contentDescription="Post Image"/>
+        android:contentDescription="Post Image"
+        android:visibility="gone"
+        android:background="#E9E3E3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="4dp"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/likeIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_like"
+            android:layout_marginEnd="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Like Icon" />
+
+        <ImageView
+            android:id="@+id/commentIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/comment"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Comment Icon" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/shareIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="2dp"
+            android:src="@drawable/save"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Share Icon" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/likesCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="4dp"
+        android:text="20 Likes"
+        android:textStyle="bold"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/postDescriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="Post Description"
-        android:textSize="16sp"
-        android:textColor="#000"/>
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="The game in Japan was amazing and I want to share some photos"
+        android:textSize="14sp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/timestampTextView"
+        android:layout_width="wrap_content"
+        android:padding="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="4dp"
+        android:layout_height="wrap_content"
+        android:text="September 19"
+        android:textSize="12sp"
+        android:textColor="#757575" />
 </LinearLayout>
