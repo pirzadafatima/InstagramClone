@@ -4,49 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray"
-    tools:context=".HomeFragment">
+    android:background="@color/light_gray">
 
-    <!-- Top bar -->
+    <!-- Top bar with Back button -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:padding="16dp"
         android:background="@color/light_gray">
 
         <ImageView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/iglogo"/>
-
-        <ImageView
-            android:id="@+id/icon_heart"
+            android:id="@+id/backButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="Favorites"
-            app:srcCompat="@drawable/ic_like"/>
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back"/>
 
     </RelativeLayout>
 
-    <!-- For posts -->
+    <!-- Post details -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/white"
         android:layout_marginTop="60dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <ImageView
+            android:id="@+id/postImage"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/postDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:text="Post Description"/>
+
     </LinearLayout>
 
 </FrameLayout>
-

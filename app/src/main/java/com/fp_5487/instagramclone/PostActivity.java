@@ -4,13 +4,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import android.content.SharedPreferences;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,12 +34,15 @@ public class PostActivity extends AppCompatActivity {
     private ImageView postImageView;
     private EditText postDescriptionEditText;
     private Button postButton;
+    private EditText location;
     private List<String> taggedUsers;
 
     private DatabaseReference databaseReference;
 
     private String base64Image;
     private String currentUserId;
+    private final Handler handler = new Handler();
+    private Runnable searchRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +52,9 @@ public class PostActivity extends AppCompatActivity {
         postImageView = findViewById(R.id.postImageView);
         postDescriptionEditText = findViewById(R.id.postDescriptionEditText);
         postButton = findViewById(R.id.postButton);
+        location = findViewById(R.id.Location);
+        SearchView searchView = findViewById(R.id.SearchTaggedPeople);
+        searchView.setQueryHint("Search");
 
         // Initialize Firebase Realtime Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("posts");
@@ -54,24 +67,50 @@ public class PostActivity extends AppCompatActivity {
         base64Image = sharedPreferences.getString("imageBase64", null);
 
         if (base64Image != null) {
-            // Decode the Base64 string to a Bitmap
             Bitmap bitmap = decodeBase64ToBitmap(base64Image);
             postImageView.setImageBitmap(bitmap);
+        } else {
+            Toast.makeText(PostActivity.this, "Image is Null", Toast.LENGTH_SHORT).show();
+
         }
+
 
         postButton.setOnClickListener(v -> {
             String description = postDescriptionEditText.getText().toString().trim();
+            String loc = location.getText().toString().trim();
 
             if (description.isEmpty()) {
                 Toast.makeText(PostActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
                 // Save the post to Firebase Realtime Database with Base64 image
-                savePostToDatabase(description, base64Image, currentUserId);
+                savePostToDatabase(loc,description, base64Image, currentUserId);
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (searchRunnable != null) {
+                    handler.removeCallbacks(searchRunnable);
+                }
+                searchRunnable = () -> performSearch(query);
+                handler.postDelayed(searchRunnable, 300); // Debounce with 300ms delay
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (searchRunnable != null) {
+                    handler.removeCallbacks(searchRunnable);
+                }
+                searchRunnable = () -> performSearch(newText);
+                handler.postDelayed(searchRunnable, 300); // Debounce with 300ms delay
+                return true;
             }
         });
     }
 
-    private void savePostToDatabase(String description, String base64Image, String userID) {
+    private void savePostToDatabase(String loc,String description, String base64Image, String userID) {
         if (base64Image == null) {
             Toast.makeText(this, "No image found to upload", Toast.LENGTH_SHORT).show();
             return;
@@ -82,7 +121,7 @@ public class PostActivity extends AppCompatActivity {
         String timestamp = String.valueOf(System.currentTimeMillis());
 
         // Create the Post object with Base64 image data and description
-        Post post = new Post(postId, userID, description, base64Image, timestamp, "Example, Country", taggedUsers);
+        Post post = new Post(postId, userID, description, base64Image, timestamp, loc, taggedUsers);
 
         // Save the post to Firebase Realtime Database
         if (postId != null) {
@@ -106,4 +145,57 @@ public class PostActivity extends AppCompatActivity {
         byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
+
+    private void performSearch(String query) {
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        if (query.isEmpty()) {
+            // If no search query, fetch the first 5 users
+            userViewModel.getAllUsers().observe(this, usersList -> {
+                if (usersList != null) {
+                    // Limit the results to the first 5 users
+                    List<User> firstFiveUsers = usersList.size() > 5 ? usersList.subList(0, 5) : usersList;
+                    openUserListFragment(firstFiveUsers);
+
+                }
+            });
+        } else {
+            // Perform the search and get filtered users
+            userViewModel.searchUsersByName(query).observe(this, usersList -> {
+                if (usersList != null) {
+                    openUserListFragment(usersList);
+                }
+            });
+        }
+    }
+
+    private void openUserListFragment(List<User> usersList) {
+        SearchFragmentTagged userListFragment = new SearchFragmentTagged();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("userList", new ArrayList<>(usersList));
+        userListFragment.setArguments(args);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.MyFragmentContainer, userListFragment);
+        transaction.addToBackStack(null); // Add fragment to back stack
+        transaction.commit();
+    }
+
+
+
+
+    public void onFragmentRemoved() {
+        // Optional: Handle UI updates or logic after the fragment is removed
+        Toast.makeText(this, "Returned to PostActivity", Toast.LENGTH_SHORT).show();
+    }
+    public void addUserToTaggedUsers(User user) {
+        // Initialize taggedUsers as an empty list
+        taggedUsers = new ArrayList<>();
+
+        if (!taggedUsers.contains(user.getUsername())) {
+            taggedUsers.add(user.getUsername());
+            Toast.makeText(this, user.getUsername() + " tagged!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }

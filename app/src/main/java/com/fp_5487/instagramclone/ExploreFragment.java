@@ -34,7 +34,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExploreFragment extends Fragment {
+public class ExploreFragment extends Fragment{
 
     public ExploreFragment() {
         // Required empty public constructor
@@ -72,7 +72,7 @@ public class ExploreFragment extends Fragment {
 
 
         // Attach adapter to RecyclerView
-        postAdapter = new GridPostAdapter(getContext(), postList );
+        postAdapter = new GridPostAdapter(getContext(), postList);
         postsRecyclerView.setAdapter(postAdapter);
 
         fetchInitialPosts();
@@ -116,6 +116,9 @@ public class ExploreFragment extends Fragment {
 
         return view;
     }
+
+
+
 
     private void performSearch(String query) {
         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);

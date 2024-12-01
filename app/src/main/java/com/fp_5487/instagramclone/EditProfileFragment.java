@@ -1,8 +1,20 @@
 package com.fp_5487.instagramclone;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +37,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class EditProfileFragment extends Fragment {
 
@@ -111,12 +126,16 @@ public class EditProfileFragment extends Fragment {
                         int spinnerPosition = adapter.getPosition(genderValue);
                         gender.setSelection(spinnerPosition);
 
-                        // Optionally, if the user has a profile image URL, load it into the profile image
-                        String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue(String.class);
-                        if (profileImageUrl != null) {
-                            Glide.with(requireContext())
-                                    .load(profileImageUrl)
-                                    .into(profileImage); // Use Glide to load the image into ImageView
+
+
+                        String base64Image = dataSnapshot.child("profilePic").getValue(String.class);
+                        Log.d("Profile Pic", base64Image);
+                        if (base64Image != null && !base64Image.isEmpty()) {
+                            Bitmap bitmap = decodeBase64ToBitmap(base64Image);
+                            Bitmap circularBitmap = getCircularBitmapWithWhiteBackground(bitmap);
+                            profileImage.setImageBitmap(circularBitmap);
+                        } else {
+                            profileImage.setImageResource(R.drawable.ic_profile); // Default image
                         }
                     }
                 }
@@ -129,6 +148,11 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
+
+    private Bitmap decodeBase64ToBitmap(String base64Image) {
+        byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
     // Function to open the image picker (using an intent to pick a picture)
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -136,18 +160,74 @@ public class EditProfileFragment extends Fragment {
         startActivityForResult(intent, 1); // Request code 1 for image picker
     }
 
+
+    private String encodeBitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream); // Compress the image
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT); // Encode as Base64
+    }
     // Handle image selection result
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == getActivity().RESULT_OK && requestCode == 1 && data != null && data.getData() != null) {
             Uri imageUri = data.getData();
-            profileImage.setImageURI(imageUri); // Update the profile image with the selected image
-            Toast.makeText(requireContext(), "Profile picture updated!", Toast.LENGTH_SHORT).show();
+
+            try {
+                // Convert URI to Bitmap
+                Bitmap originalBitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), imageUri);
+
+                // Create circular bitmap with white background
+                Bitmap circularBitmap = getCircularBitmapWithWhiteBackground(originalBitmap);
+
+                // Set the circular bitmap to the ImageView
+                profileImage.setImageBitmap(circularBitmap);
+
+                // Encode circular bitmap to Base64
+                String base64Image = encodeBitmapToBase64(circularBitmap);
+
+                // Save the Base64 string to Firebase
+                saveProfilePicToFirebase(base64Image);
+
+                Toast.makeText(requireContext(), "Profile picture updated!", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                Toast.makeText(requireContext(), "Failed to process image", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
         } else {
             Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    private Bitmap getCircularBitmapWithWhiteBackground(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int size = Math.min(width, height);
+
+        Bitmap output = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(output);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+
+        // Draw a white circle
+        paint.setColor(Color.WHITE);
+        canvas.drawCircle(size / 2f, size / 2f, size / 2f, paint);
+
+        // Draw the circular bitmap
+        BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        paint.setShader(shader);
+
+        float left = (width - size) / 2f;
+        float top = (height - size) / 2f;
+        RectF rect = new RectF(0, 0, size, size);
+        canvas.drawOval(rect, paint);
+
+        return output;
+    }
+
 
     // Setup gender spinner with options
     private void setupGenderSpinner() {
@@ -167,10 +247,9 @@ public class EditProfileFragment extends Fragment {
         String website = websiteField.getText().toString().trim();
         String selectedGender = gender.getSelectedItem().toString().trim();
 
-        if (name.isEmpty() || username.isEmpty()) {
-            Toast.makeText(requireContext(), "Name and Username cannot be empty", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        // Encode the Bitmap to Base64
+
+
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -187,4 +266,22 @@ public class EditProfileFragment extends Fragment {
             Toast.makeText(requireContext(), "Profile updated successfully!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void saveProfilePicToFirebase(String base64Image) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+
+            databaseReference.child("profilePic").setValue(base64Image)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(requireContext(), "Profile picture saved successfully!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(requireContext(), "Failed to save profile picture", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
 }

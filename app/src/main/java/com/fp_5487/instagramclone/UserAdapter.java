@@ -1,6 +1,7 @@
 package com.fp_5487.instagramclone;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 //.placeholder(R.drawable.ic_profile)// Add error handling
                 //.error(R.drawable.error)
                 //.into(holder.profileImageView);
+        holder.itemView.setOnClickListener(v -> {
+            if (context instanceof PostActivity) {
+                // Cast to PostActivity and call addUserToTaggedUsers()
+                ((PostActivity) context).addUserToTaggedUsers(user);
+            } else {
+                Log.e("UserAdapter", "Context is not an instance of PostActivity.");
+            }
+        });
+
     }
 
 

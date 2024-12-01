@@ -10,7 +10,7 @@
         android:layout_weight="1"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:padding="1dp"
+        android:padding="2dp"
         android:src="@drawable/sample_image"/>
 
 </LinearLayout>

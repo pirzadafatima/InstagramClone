@@ -52,25 +52,25 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        recyclerViewVideo = view.findViewById(R.id.recyclerViewVideos);
-        recyclerViewVideo.setLayoutManager(new LinearLayoutManager(getContext()));
+        //recyclerViewVideo = view.findViewById(R.id.recyclerViewVideos);
+        //recyclerViewVideo.setLayoutManager(new LinearLayoutManager(getContext()));
 
         postList = new ArrayList<>();
         postAdapter = new PostAdapter(getContext(), postList);
         recyclerView.setAdapter(postAdapter);
 
-        reelList = new ArrayList<>();
-        reelPostAdapter = new ReelPostAdapter(getContext(),reelList);
-        recyclerViewVideo.setAdapter(reelPostAdapter);
+        //reelList = new ArrayList<>();
+        //reelPostAdapter = new ReelPostAdapter(getContext(),reelList);
+        //recyclerViewVideo.setAdapter(reelPostAdapter);
 
         // Initialize Firebase Realtime Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("posts");
 
         fetchPosts();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("reels");
+        //databaseReference = FirebaseDatabase.getInstance().getReference("reels");
 
-        fetchReels();
+        //fetchReels();
         return view;
     }
 
