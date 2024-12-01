@@ -10,14 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class GridPostAdapter extends RecyclerView.Adapter<GridPostAdapter.GridPostViewHolder> {
 
     private Context context;
-    private List<Integer> postImages; // Replace Integer with your post model
+    private List<Post> postImages; // Replace Integer with your post model
 
-    public GridPostAdapter(Context context, List<Integer> postImages) {
+    public GridPostAdapter(Context context, List<Post> postImages) {
         this.context = context;
         this.postImages = postImages;
     }
@@ -31,8 +33,16 @@ public class GridPostAdapter extends RecyclerView.Adapter<GridPostAdapter.GridPo
 
     @Override
     public void onBindViewHolder(@NonNull GridPostViewHolder holder, int position) {
-        holder.postImage.setImageResource(postImages.get(position));
+        Post post = postImages.get(position);
+
+        // Bind data
+
+        // Set the Bitmap image to the ImageView
+        if (post.getImageBitmap() != null) {
+            holder.postImage.setImageBitmap(post.getImageBitmap());
+        }   // Load into the ImageView
     }
+
 
     @Override
     public int getItemCount() {

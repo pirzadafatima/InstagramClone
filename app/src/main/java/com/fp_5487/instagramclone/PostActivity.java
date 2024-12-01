@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.search.SearchView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,7 +26,7 @@ public class PostActivity extends AppCompatActivity {
     private ImageView postImageView;
     private EditText postDescriptionEditText;
     private Button postButton;
-
+    private EditText locationEditText;
     private DatabaseReference databaseReference;
 
     private String base64Image;
@@ -38,7 +39,9 @@ public class PostActivity extends AppCompatActivity {
         postImageView = findViewById(R.id.postImageView);
         postDescriptionEditText = findViewById(R.id.postDescriptionEditText);
         postButton = findViewById(R.id.postButton);
-
+        locationEditText = findViewById(R.id.Location);
+        androidx.appcompat.widget.SearchView searchView = findViewById(R.id.SErachTaggedPeople);
+        searchView.setQueryHint("Search");
         // Initialize Firebase Realtime Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("posts");
 

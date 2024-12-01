@@ -41,10 +41,7 @@ public class GridPostsFragment extends Fragment {
         });
 
         // Load sample data
-        List<Integer> postImages = new ArrayList<>();
-        postImages.add(R.drawable.sample_image);
-        postImages.add(R.drawable.sample_image);
-        postImages.add(R.drawable.sample_image);
+        List<Post> postImages = new ArrayList<>();
 
         // Attach adapter
         postAdapter = new GridPostAdapter(getContext(), postImages);

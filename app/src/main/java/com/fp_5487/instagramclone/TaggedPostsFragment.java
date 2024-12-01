@@ -51,12 +51,7 @@ public class TaggedPostsFragment extends Fragment {
 
     private void setupRecyclerView() {
         // Create sample data for tagged posts (replace with your actual data source)
-        List<Integer> taggedImages = new ArrayList<>();
-        taggedImages.add(R.drawable.sample_image);
-        taggedImages.add(R.drawable.sample_image);
-        taggedImages.add(R.drawable.sample_image);
-        taggedImages.add(R.drawable.sample_image);
-        taggedImages.add(R.drawable.sample_image);
+        List<Post> taggedImages = new ArrayList<>();
 
         // Set up GridLayoutManager for 3 columns
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);

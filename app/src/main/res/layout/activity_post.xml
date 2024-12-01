@@ -1,10 +1,12 @@
-<!-- res/layout/activity_post.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/white">
 
+    <!-- Post Image -->
     <ImageView
         android:id="@+id/postImageView"
         android:layout_width="300dp"
@@ -12,8 +14,7 @@
         android:layout_gravity="center"
         android:contentDescription="Captured Image" />
 
-
-
+    <!-- Post Description -->
     <EditText
         android:id="@+id/postDescriptionEditText"
         android:layout_width="match_parent"
@@ -24,6 +25,56 @@
         android:background="@android:color/transparent"
         android:inputType="textMultiLine" />
 
+    <!-- Location with Icon -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="30dp">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_location"
+            android:layout_marginEnd="20dp"/>
+        <EditText
+            android:id="@+id/Location"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:hint="Location"
+            android:background="@android:color/transparent"
+            android:inputType="textMultiLine" />
+    </LinearLayout>
+
+    <!-- Search View with Icon -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_tagged"
+            android:layout_marginEnd="20dp"
+            />
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/SErachTaggedPeople"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search"
+            android:text="Tag People"
+
+            android:textColor="@color/black"
+            android:background="@drawable/search_bar" />
+    </LinearLayout>
+
+    <!-- Post Button -->
     <Button
         android:id="@+id/postButton"
         android:background="@drawable/button_share_background"

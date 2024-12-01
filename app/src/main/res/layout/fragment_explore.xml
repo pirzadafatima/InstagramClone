@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/Explore">
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -24,48 +25,17 @@
                 android:iconifiedByDefault="false"
                 android:queryHint="Search"
                 android:text="Search"
+                android:textColor="@color/black"
                 android:background="@drawable/search_bar"
                 android:layout_marginBottom="8dp" />
 
-            <!-- Grid layout -->
-            <GridLayout
-                android:id="@+id/grid_layout"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/postsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="3"
-                android:alignmentMode="alignMargins"
-                android:useDefaultMargins="true">
+                android:orientation="vertical"
+                android:layout_marginTop="8dp"/>
 
-                <!-- Sample grid items -->
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/sample_image" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/sample_image" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/sample_image" />
-            </GridLayout>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button_comments"
-                android:background="@drawable/button_share_background"
-                android:text="Comments">
-
-            </Button>
         </LinearLayout>
 
     </ScrollView>

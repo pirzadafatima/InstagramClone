@@ -66,10 +66,11 @@ public class LibraryFragment extends Fragment {
             // Get the Bitmap from the ImageView
             selectedImageView.setDrawingCacheEnabled(true); // Enable the drawing cache
             selectedImageView.buildDrawingCache(); // Build the drawing cache
-            Bitmap bitmap = ((BitmapDrawable) selectedImageView.getDrawable()).getBitmap(); // Get the Bitmap
+            Bitmap obitmap = ((BitmapDrawable) selectedImageView.getDrawable()).getBitmap(); // Get the Bitmap
 
             // Encode the Bitmap to Base64
-            String encodedImage = encodeBitmapToBase64(bitmap);
+            Bitmap croppedBitmap = cropAndResizeBitmap(obitmap, 500);
+            String encodedImage = encodeBitmapToBase64(croppedBitmap);
 
             // Save the Base64 encoded image in SharedPreferences
             SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("image_prefs", Context.MODE_PRIVATE);
@@ -178,6 +179,27 @@ public class LibraryFragment extends Fragment {
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.DEFAULT); // Encode as Base64
     }
+
+
+    private Bitmap cropAndResizeBitmap(Bitmap bitmap, int targetSize) {
+        // Determine the smallest dimension
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int size = Math.min(width, height);
+
+        // Crop the image to a square (1:1 aspect ratio)
+        Bitmap croppedBitmap = Bitmap.createBitmap(
+                bitmap,
+                (width - size) / 2, // X coordinate of the first pixel
+                (height - size) / 2, // Y coordinate of the first pixel
+                size, // Width of the square
+                size // Height of the square
+        );
+
+        // Resize the cropped bitmap to the target size
+        return Bitmap.createScaledBitmap(croppedBitmap, targetSize, targetSize, true);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
