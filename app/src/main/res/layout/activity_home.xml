@@ -10,7 +10,8 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="800dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="830dp"
         android:layout_above="@id/tabLayout"/>
 
     <!-- TabLayout at the bottom of the screen -->
@@ -25,6 +26,5 @@
         app:tabGravity="fill"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@android:color/darker_gray" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

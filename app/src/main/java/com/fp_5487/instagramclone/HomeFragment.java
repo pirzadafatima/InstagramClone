@@ -25,6 +25,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import android.util.Base64;
 import android.widget.VideoView;
 
@@ -52,25 +54,25 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        //recyclerViewVideo = view.findViewById(R.id.recyclerViewVideos);
-        //recyclerViewVideo.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recyclerViewVideo = view.findViewById(R.id.recyclerViewVideos);
+//        recyclerViewVideo.setLayoutManager(new LinearLayoutManager(getContext()));
 
         postList = new ArrayList<>();
         postAdapter = new PostAdapter(getContext(), postList);
         recyclerView.setAdapter(postAdapter);
 
-        //reelList = new ArrayList<>();
-        //reelPostAdapter = new ReelPostAdapter(getContext(),reelList);
-        //recyclerViewVideo.setAdapter(reelPostAdapter);
+//        reelList = new ArrayList<>();
+//        reelPostAdapter = new ReelPostAdapter(getContext(),reelList);
+//        recyclerViewVideo.setAdapter(reelPostAdapter);
 
         // Initialize Firebase Realtime Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("posts");
 
         fetchPosts();
-
-        //databaseReference = FirebaseDatabase.getInstance().getReference("reels");
-
-        //fetchReels();
+//
+//        databaseReference = FirebaseDatabase.getInstance().getReference("reels");
+//
+//        fetchReels();
         return view;
     }
 
@@ -140,7 +142,7 @@ public class HomeFragment extends Fragment {
         try {
             byte[] decodedBytes = Base64.decode(base64Video, Base64.DEFAULT);
 
-            File tempFile = new File(getContext().getCacheDir(), "temp_video_" + System.currentTimeMillis() + ".mp4");
+            File tempFile = new File(requireContext().getCacheDir(), "temp_video_" + System.currentTimeMillis() + ".mp4");
             FileOutputStream fos = new FileOutputStream(tempFile);
             fos.write(decodedBytes);
             fos.close();
