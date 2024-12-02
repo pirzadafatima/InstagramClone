@@ -102,16 +102,6 @@
             android:textSize="14sp"
             android:layout_marginEnd="8dp" />
 
-        <!-- Follow Button -->
-        <TextView
-            android:id="@+id/followButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:background="@color/white"
-            android:text="Follow"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
     </LinearLayout>
 </RelativeLayout>
 

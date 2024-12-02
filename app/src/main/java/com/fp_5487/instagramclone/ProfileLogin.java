@@ -74,7 +74,7 @@ public class ProfileLogin extends AppCompatActivity {
                             Bitmap circularBitmap = getCircularBitmapWithWhiteBackground(bitmap);
                             profileImageView.setImageBitmap(circularBitmap);
                         } else {
-                            profileImageView.setImageResource(R.drawable.ic_profile); // Default image
+                            profileImageView.setImageResource(R.drawable.profile); // Default image
                         }
                         assert username != null;
                         Log.d("Tag", username);
