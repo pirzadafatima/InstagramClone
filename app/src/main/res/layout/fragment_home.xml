@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_gray"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    android:id="@+id/fragment_home">
 
     <!-- Top bar -->
     <RelativeLayout
@@ -23,13 +24,13 @@
             android:src="@drawable/iglogo"/>
 
         <ImageView
-            android:id="@+id/icon_heart"
+            android:id="@+id/likes"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="16dp"
             android:contentDescription="Favorites"
-            app:srcCompat="@drawable/ic_like"/>
+            android:src="@drawable/ic_like"/>
 
     </RelativeLayout>
 

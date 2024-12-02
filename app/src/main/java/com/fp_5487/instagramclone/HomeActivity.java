@@ -1,5 +1,6 @@
 package com.fp_5487.instagramclone;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -77,6 +78,7 @@ public class HomeActivity extends AppCompatActivity {
                     break;
             }
         }).attach();
+
 
         fetchUserData();
     }

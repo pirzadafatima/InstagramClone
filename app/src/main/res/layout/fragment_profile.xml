@@ -12,7 +12,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_profile">
+        android:id="@+id/fragment_profile"
+        android:background="@color/white">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -46,7 +47,7 @@
                     android:id="@+id/profileUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="jacob_w"
+                    android:text="username_"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:ellipsize="end"
@@ -95,7 +96,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_profile"
+                    android:src="@drawable/default_profile_picture"
                     android:scaleType="centerCrop"
                     />
 
@@ -194,7 +195,7 @@
                 android:id="@+id/FullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jacob Welsh"
+                android:text="Full Name"
                 android:textColor="@color/textColor"
                 android:textStyle="bold"
                 android:textSize="18sp" />
@@ -215,6 +216,7 @@
                 android:layout_height="wrap_content"
                 android:text="Edit Profile"
                 android:textAllCaps="false"
+                android:textAlignment="center"
                 android:backgroundTint="@android:color/transparent"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/textColor" />

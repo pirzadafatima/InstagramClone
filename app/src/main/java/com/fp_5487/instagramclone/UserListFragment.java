@@ -45,6 +45,15 @@ public class UserListFragment extends Fragment {
         userAdapter = new UserAdapter(getContext(), userList);
         recyclerView.setAdapter(userAdapter);
 
+        // Handle item click in the UserAdapter
+        userAdapter.setOnItemClickListener(new UserAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(User user) {
+                // Navigate to the ProfileFragment when a user is clicked
+                navigateToProfile(user);
+            }
+        });
+
         actionButton = rootView.findViewById(R.id.btn_action);
 
         // Set a click listener on the button
@@ -53,6 +62,27 @@ public class UserListFragment extends Fragment {
             removeFragment();
         });
         return rootView;
+    }
+
+    private void navigateToProfile(User user) {
+        // Create a bundle with user information
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", user.getUsername());
+
+        // Get the HomeActivity and replace ExploreFragment with ProfileFragment
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+
+            // Create a ProfileFragment and pass the bundle to it
+            ProfileFragment profileFragment = new ProfileFragment();
+            profileFragment.setArguments(bundle);
+
+            // Replace ExploreFragment with ProfileFragment
+            homeActivity.getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.Explore, profileFragment) // ID of the container where ExploreFragment was
+                    .addToBackStack(null)  // Add to back stack so we can go back to ExploreFragment
+                    .commit();
+        }
     }
 
     private void removeFragment() {

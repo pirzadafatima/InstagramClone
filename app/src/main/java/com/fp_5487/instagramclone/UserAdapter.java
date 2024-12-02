@@ -26,6 +26,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     private List<User> userList; // List of users to display
     private Context context;
+    private OnItemClickListener onItemClickListener;  // Added missing variable
 
     public UserAdapter(Context context, List<User> userList) {
         this.context = context;
@@ -57,15 +58,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 //.into(holder.profileImageView);
         holder.itemView.setOnClickListener(v -> {
             if (context instanceof PostActivity) {
-                // Cast to PostActivity and call addUserToTaggedUsers()
+                // Add the user to tagged users in PostActivity
                 ((PostActivity) context).addUserToTaggedUsers(user);
-            } else {
-                Log.e("UserAdapter", "Context is not an instance of PostActivity.");
+            } else if (onItemClickListener != null) {
+                // Pass the clicked user to the listener for navigation
+                onItemClickListener.onItemClick(user);
             }
         });
-
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(User user);  // Define the click event interface
+    }
 
     @Override
     public int getItemCount() {
@@ -88,6 +96,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         }
     }
 
+    // Method to update the user list with diff calculation for better performance
     public void updateUserList(List<User> newUserList) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
             @Override

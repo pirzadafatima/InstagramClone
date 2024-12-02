@@ -51,6 +51,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
     private TextView fullname, userName, userbio, post_count, follower_count, following_count;
     private ImageView profilePic;
+    private String userId;
 
     @Nullable
     @Override
@@ -73,6 +74,12 @@ public class ProfileFragment extends Fragment {
             following_count = view.findViewById(R.id.followingCount);
             profilePic = view.findViewById(R.id.profileImage);
             mAuth = FirebaseAuth.getInstance();
+
+            // Check if userId is passed in arguments
+            Bundle args = getArguments();
+            if (args != null) {
+                userId = args.getString("userId");
+            }
 
             // Check if views are null
             if (tabLayout == null || viewPager == null || drawerLayout == null) {
@@ -101,13 +108,29 @@ public class ProfileFragment extends Fragment {
                 }
             }).attach();
 
-            // Edit Profile Button Listener
+            // Edit Profile / Follow Button Listener
+            if (userId != null) {
+                // Change button text to "Follow" and background to blue
+                editProfileButton.setText("Follow");
+                editProfileButton.setBackgroundColor(getResources().getColor(R.color.blue));
+            } else {
+                // Change button text to "Edit Profile"
+                editProfileButton.setText("Edit Profile");
+                editProfileButton.setBackgroundColor(getResources().getColor(R.color.white)); // Set default color
+            }
+
             editProfileButton.setOnClickListener(v -> {
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_profile, new EditProfileFragment())
-                        .addToBackStack(null) // Adds this transaction to the back stack
-                        .commit();
+                if (userId != null) {
+                    // Handle follow action
+                    followUser(userId);
+                } else {
+                    // Edit profile action
+                    requireActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_profile, new EditProfileFragment()) // Ensure fragment_container exists
+                            .addToBackStack(null)
+                            .commit();
+                }
             });
 
             // Menu Icon Listener
@@ -137,7 +160,16 @@ public class ProfileFragment extends Fragment {
                 return true;
             });
 
-            fetchUserData();
+            //Log.d("UserID", userId );
+
+            // Fetch user data based on userId
+            if (userId != null) {
+                //Log.d("ProfileFragment", "I am in fetchOtherUser");
+                getUserIdByUsername(userId);
+                //fetchOtherUserData(userId); // Fetch data for the other user
+            } else {
+                fetchUserData(); // Fetch logged-in user's data
+            }
         } catch (Exception e) {
             Log.e("ProfileFragment", "Error in onCreateView", e);
         }
@@ -267,5 +299,99 @@ public class ProfileFragment extends Fragment {
             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void getUserIdByUsername(String username) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
+
+        usersRef.orderByChild("username").equalTo(username)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            Log.d("UserID", "Found user with username: " + username);
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                String userId = snapshot.getKey();  // This is the userID
+                                Log.d("UserID", "Found userId: " + userId);
+
+                                // Now, call fetchUserData() to fetch the complete user details using the userId
+                                fetchOtherUserData(userId);
+                            }
+                        } else {
+                            Log.d("UserID", "No user found with username: " + username);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("UserID", "Error fetching userId: " + databaseError.getMessage());
+                    }
+                });
+    }
+
+
+    private void fetchOtherUserData(String userId) {
+        //Log.d("UserId", userId);
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+
+        databaseReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    if (dataSnapshot.exists()) {
+                        Log.d("ProfileFragment", "Fetched Other User Data: " + dataSnapshot.toString());
+
+                        // Fetch user data
+                        String name = dataSnapshot.child("fullName").getValue(String.class);
+                        fullname.setText(name != null ? name : "No Name");
+
+                        String username = dataSnapshot.child("username").getValue(String.class);
+                        userName.setText(username != null ? username : "No Username");
+
+                        String bio = dataSnapshot.child("bio").getValue(String.class);
+                        userbio.setText(bio != null ? bio : "No Bio");
+
+                        Integer followersCount = dataSnapshot.child("followers").getValue(Integer.class);
+                        Integer followingCount = dataSnapshot.child("following").getValue(Integer.class);
+                        Integer postsCount = dataSnapshot.child("posts").getValue(Integer.class);
+
+                        // Update counts with null checks
+                        follower_count.setText(String.valueOf(followersCount != null ? followersCount : 0));
+                        following_count.setText(String.valueOf(followingCount != null ? followingCount : 0));
+                        post_count.setText(String.valueOf(postsCount != null ? postsCount : 0));
+
+                        // Load profile image
+                        String base64Image = dataSnapshot.child("profilePic").getValue(String.class);
+                        Log.d("Profile Pic", base64Image);
+                        if (base64Image != null && !base64Image.isEmpty()) {
+                            Bitmap bitmap = decodeBase64ToBitmap(base64Image);
+                            Bitmap circularBitmap = getCircularBitmapWithWhiteBackground(bitmap);
+                            profilePic.setImageBitmap(circularBitmap);
+                        } else {
+                            profilePic.setImageResource(R.drawable.ic_profile); // Default image
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "User data not found", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Log.e("ProfileFragment", "Error fetching user data", e);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("ProfileFragment", "Database error: " + databaseError.getMessage());
+                Toast.makeText(getContext(), "Failed to load user data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void followUser(String userId) {
+        // Logic for following the user can be added here
+        // For now, we simply change the button text to "Following"
+        editProfileButton.setText("Following");
+        editProfileButton.setBackgroundColor(getResources().getColor(R.color.white));
+        Toast.makeText(getContext(), "Followed " + userId, Toast.LENGTH_SHORT).show();
+    }
+
 
 }
