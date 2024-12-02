@@ -72,8 +72,9 @@ public class ExploreFragment extends Fragment{
 
 
         // Attach adapter to RecyclerView
-        postAdapter = new GridPostAdapter(getContext(), postList);
+        postAdapter = new GridPostAdapter(getContext(), postList, post -> openPostDetailFragment(post));
         postsRecyclerView.setAdapter(postAdapter);
+
 
         fetchInitialPosts();
 
@@ -142,6 +143,18 @@ public class ExploreFragment extends Fragment{
         }
     }
 
+
+    private void openPostDetailFragment(Post post) {
+        PostDetailFragment postDetailFragment = new PostDetailFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("post", post); // Pass the post object to the fragment
+        postDetailFragment.setArguments(args);
+
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.Explore, postDetailFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
     private void openUserListFragment(List<User> usersList) {
         UserListFragment userListFragment = new UserListFragment();
@@ -279,6 +292,15 @@ public class ExploreFragment extends Fragment{
                     }
                 });
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (searchRunnable != null) {
+            handler.removeCallbacks(searchRunnable);
+        }
+    }
+
 
 
 }

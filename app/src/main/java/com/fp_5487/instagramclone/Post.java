@@ -1,4 +1,5 @@
 package com.fp_5487.instagramclone;
+import java.io.Serializable;
 
 import android.graphics.Bitmap;
 
@@ -6,7 +7,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-public class Post {
+public class Post implements Serializable{
     private String id;
     private String description;
     private String imageBase64;

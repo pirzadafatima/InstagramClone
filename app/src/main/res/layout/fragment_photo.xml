@@ -5,8 +5,9 @@
     <!-- Camera Preview -->
     <androidx.camera.view.PreviewView
         android:id="@+id/preview_view"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="350dp"/>
 
     <!-- ImageView to Display Captured Image -->
     <ImageView
@@ -56,5 +57,6 @@
         android:layout_marginBottom="30dp"
         android:background="@drawable/circular_button"
         android:text=""
+        style="@style/Theme.CustomButtomStyle"
         android:contentDescription="Take Photo" />
 </FrameLayout>

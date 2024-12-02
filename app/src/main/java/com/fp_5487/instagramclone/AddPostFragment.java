@@ -3,12 +3,14 @@ package com.fp_5487.instagramclone;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -17,7 +19,7 @@ public class AddPostFragment extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
-
+    private TextView cancelButton;
 
     public AddPostFragment(){
 
@@ -31,6 +33,8 @@ public class AddPostFragment extends Fragment {
         // Initialize TabLayout and ViewPager2
         tabLayout = view.findViewById(R.id.tabLayout_post);
         viewPager = view.findViewById(R.id.viewPager_post);
+        cancelButton = view.findViewById(R.id.cancel_button);
+
 
         // Set up the ViewPager with a FragmentStateAdapter
         FragmentStateAdapter adapter = new FragmentStateAdapter(this) {
@@ -53,6 +57,8 @@ public class AddPostFragment extends Fragment {
                 return 3; // Number of tabs
             }
         };
+
+
 
         viewPager.setAdapter(adapter);
 
@@ -79,4 +85,6 @@ public class AddPostFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         // Additional setup here
     }
+
+
 }

@@ -144,9 +144,14 @@ public class PhotoFragment extends Fragment {
                                 // Show the "Cancel" and "Next" buttons
                                 buttonLayout.setVisibility(View.VISIBLE); // Show buttons
 
+
+
+
+
                                 // Convert the Bitmap to Base64 and store it in SharedPreferences
                                 Bitmap imageBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                                String encodedImage = encodeBitmapToBase64(imageBitmap);
+                                Bitmap croppedBitmap = cropAndResizeBitmap(imageBitmap, 500);
+                                String encodedImage = encodeBitmapToBase64(croppedBitmap);
 
                                 SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("image_prefs", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -177,6 +182,24 @@ public class PhotoFragment extends Fragment {
         return Base64.encodeToString(byteArray, Base64.DEFAULT); // Encode as Base64
     }
 
+    private Bitmap cropAndResizeBitmap(Bitmap bitmap, int targetSize) {
+        // Determine the smallest dimension
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int size = Math.min(width, height);
+
+        // Crop the image to a square (1:1 aspect ratio)
+        Bitmap croppedBitmap = Bitmap.createBitmap(
+                bitmap,
+                (width - size) / 2, // X coordinate of the first pixel
+                (height - size) / 2, // Y coordinate of the first pixel
+                size, // Width of the square
+                size // Height of the square
+        );
+
+        // Resize the cropped bitmap to the target size
+        return Bitmap.createScaledBitmap(croppedBitmap, targetSize, targetSize, true);
+    }
     private void displayCapturedImage() {
         // Decode the image file into a Bitmap and set it to the ImageView
         Bitmap imageBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());

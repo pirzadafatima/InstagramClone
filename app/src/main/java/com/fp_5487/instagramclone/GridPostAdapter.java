@@ -20,6 +20,19 @@ public class GridPostAdapter extends RecyclerView.Adapter<GridPostAdapter.GridPo
     private Context context;
     private List<Post> postImages; // Replace Integer with your post model
 
+    private OnPostClickListener onPostClickListener;
+
+    public interface OnPostClickListener {
+        void onPostClick(Post post);
+    }
+
+    public GridPostAdapter(Context context, List<Post> posts, OnPostClickListener listener) {
+        this.context = context;
+        this.postImages = posts;
+        this.onPostClickListener = listener;
+    }
+
+
     public GridPostAdapter(Context context, List<Post> postImages) {
         this.context = context;
         this.postImages = postImages;
@@ -44,6 +57,12 @@ public class GridPostAdapter extends RecyclerView.Adapter<GridPostAdapter.GridPo
         if (post.getImageBitmap() != null) {
             holder.postImage.setImageBitmap(post.getImageBitmap());
         }   // Load into the ImageView
+
+        holder.itemView.setOnClickListener(v -> {
+            if (onPostClickListener != null) {
+                onPostClickListener.onPostClick(post);
+            }
+        });
 
     }
 

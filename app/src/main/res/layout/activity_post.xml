@@ -4,35 +4,47 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:layout_marginTop="10dp"
     android:background="@color/white">
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:layout_marginTop="2dp">
 
+        <Button
+            android:id="@+id/back_action_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_back"
+            style = "@style/Theme.CustomButtomStyle"
+            android:layout_marginEnd="100dp"/>
         <TextView
-            android:id="@+id/cancel_button"
+            android:id="@+id/NewPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:layout_marginEnd="200dp"/>
+            android:layout_centerInParent="true"
+            android:text="New Post"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginEnd="72dp"/>
 
         <Button
             android:id="@+id/postButton"
             android:background="@drawable/button_share_background"
+            style = "@style/Theme.CustomButtomStyle"
             android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:textAlignment="center"
-            android:textSize="10dp"
+            android:layout_height="40dp"
             android:text="Share"
-            android:textColor="@color/white"/>
+            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+
+
     </LinearLayout>
     <!-- Post Button -->
 
@@ -41,6 +53,7 @@
         android:id="@+id/postImageView"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:contentDescription="Captured Image" />
 
@@ -51,9 +64,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="30dp"
-        android:hint="Caption"
+        android:hint="Write a caption"
         android:background="@android:color/transparent"
         android:inputType="textMultiLine" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="10dp" />
+
 
     <!-- Location with Icon -->
     <LinearLayout

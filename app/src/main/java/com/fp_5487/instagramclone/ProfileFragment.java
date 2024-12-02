@@ -105,8 +105,8 @@ public class ProfileFragment extends Fragment {
             editProfileButton.setOnClickListener(v -> {
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_profile, new EditProfileFragment()) // Ensure fragment_container exists
-                        .addToBackStack(null)
+                        .replace(R.id.fragment_profile, new EditProfileFragment())
+                        .addToBackStack(null) // Adds this transaction to the back stack
                         .commit();
             });
 
@@ -143,6 +143,12 @@ public class ProfileFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
     }
 
     private void setTabIcon(TabLayout.Tab tab, int drawableId) {

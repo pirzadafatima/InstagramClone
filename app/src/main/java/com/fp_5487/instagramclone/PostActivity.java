@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentTransaction;
@@ -33,7 +34,7 @@ public class PostActivity extends AppCompatActivity {
 
     private ImageView postImageView;
     private EditText postDescriptionEditText;
-    private Button postButton;
+    private Button postButton, backBtn;
     private EditText location;
     private List<String> taggedUsers;
 
@@ -47,6 +48,7 @@ public class PostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_post);
 
         postImageView = findViewById(R.id.postImageView);
@@ -55,7 +57,8 @@ public class PostActivity extends AppCompatActivity {
         location = findViewById(R.id.Location);
         SearchView searchView = findViewById(R.id.SearchTaggedPeople);
         searchView.setQueryHint("Search");
-
+        backBtn = findViewById(R.id.back_action_back);
+        taggedUsers = new ArrayList<>();
         // Initialize Firebase Realtime Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("posts");
 
@@ -73,7 +76,12 @@ public class PostActivity extends AppCompatActivity {
             Toast.makeText(PostActivity.this, "Image is Null", Toast.LENGTH_SHORT).show();
 
         }
-
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         postButton.setOnClickListener(v -> {
             String description = postDescriptionEditText.getText().toString().trim();
@@ -189,7 +197,7 @@ public class PostActivity extends AppCompatActivity {
     }
     public void addUserToTaggedUsers(User user) {
         // Initialize taggedUsers as an empty list
-        taggedUsers = new ArrayList<>();
+
 
         if (!taggedUsers.contains(user.getUsername())) {
             taggedUsers.add(user.getUsername());

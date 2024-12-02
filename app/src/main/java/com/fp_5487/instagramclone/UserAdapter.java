@@ -1,6 +1,13 @@
 package com.fp_5487.instagramclone;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +46,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.usernameTextView.setText(user.getUsername());
         holder.nameTextView.setText(user.getFullName());
         holder.followersCountTextView.setText(String.format("Followers: %d", user.getFollowers()));
-
+        String base64 = user.getProfilePic();
+        Bitmap bitmap = decodeBase64ToBitmap(base64);
+        Bitmap circular =getCircularBitmapWithWhiteBackground(bitmap);
+        holder.profileImageView.setImageBitmap(circular);
         //Picasso.get()
                 //.load(user.getProfilePic())
                 //.placeholder(R.drawable.ic_profile)// Add error handling
@@ -74,7 +84,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             usernameTextView = itemView.findViewById(R.id.username);
             nameTextView = itemView.findViewById(R.id.name);
             followersCountTextView = itemView.findViewById(R.id.followers_count);
-            //profileImageView = itemView.findViewById(R.id.image_profile);
+            profileImageView = itemView.findViewById(R.id.image_profile);
         }
     }
 
@@ -105,6 +115,32 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         userList.clear();
         userList.addAll(newUserList);
         diffResult.dispatchUpdatesTo(this);
+    }
+
+    private Bitmap decodeBase64ToBitmap(String base64Image) {
+        byte[] decodedBytes = android.util.Base64.decode(base64Image, android.util.Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
+    private Bitmap getCircularBitmapWithWhiteBackground(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int size = Math.min(width, height);
+
+        Bitmap output = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(output);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(Color.WHITE);
+        canvas.drawCircle(size / 2f, size / 2f, size / 2f, paint);
+
+        BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        paint.setShader(shader);
+
+        canvas.drawCircle(size / 2f, size / 2f, size / 2f, paint);
+
+        return output;
     }
 
 }

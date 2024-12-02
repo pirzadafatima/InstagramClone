@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class ReelsPostActivity extends AppCompatActivity {
     private List<String> taggedUsers;
     private DatabaseReference databaseReference;
     private String currentUserId;
+    private Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class ReelsPostActivity extends AppCompatActivity {
         postVideoView = findViewById(R.id.postVideoView);
         postDescriptionEditText = findViewById(R.id.postDescriptionVideoEditText);
         postButton = findViewById(R.id.postVideoButton);
-
+        back = findViewById(R.id.back_btnn);
         // Initialize Firebase Realtime Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("reels");
 
@@ -75,6 +77,13 @@ public class ReelsPostActivity extends AppCompatActivity {
                 }
             } else {
                 Toast.makeText(ReelsPostActivity.this, "No video to post", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }

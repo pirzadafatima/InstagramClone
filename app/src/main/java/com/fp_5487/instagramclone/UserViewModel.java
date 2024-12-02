@@ -76,7 +76,7 @@ public class UserViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         // Cleanup any Firebase listeners here
-        databaseReference.removeEventListener((ValueEventListener) this);
+        //databaseReference.removeEventListener((ValueEventListener) this);
     }
 
 }

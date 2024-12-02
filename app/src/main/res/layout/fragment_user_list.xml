@@ -9,6 +9,7 @@
         android:id="@+id/btn_action"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        style = "@style/Theme.CustomButtomStyle"
         android:background="@drawable/ic_back"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
