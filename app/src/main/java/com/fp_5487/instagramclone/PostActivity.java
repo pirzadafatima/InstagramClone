@@ -14,14 +14,18 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.content.SharedPreferences;
 
@@ -39,7 +43,7 @@ public class PostActivity extends AppCompatActivity {
     private List<String> taggedUsers;
 
     private DatabaseReference databaseReference;
-
+    private DatabaseReference userRef;
     private String base64Image;
     private String currentUserId;
     private final Handler handler = new Handler();
@@ -136,8 +140,8 @@ public class PostActivity extends AppCompatActivity {
             databaseReference.child(postId).setValue(post)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(PostActivity.this, "Post created successfully!", Toast.LENGTH_SHORT).show();
+                        incrementUserPostCount(userID);
 
-                        // Navigate back to HomeActivity
                         Intent intent = new Intent(PostActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish(); // Close the activity after saving
@@ -188,8 +192,28 @@ public class PostActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    private void incrementUserPostCount(String userID) {
+        userRef = FirebaseDatabase.getInstance().getReference("Users").child(userID);
 
+        userRef.child("posts").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long currentPostCount = 0;
+                if (snapshot.exists()) {
+                    currentPostCount = snapshot.getValue(Long.class);
+                }
 
+                userRef.child("posts").setValue(currentPostCount + 1)
+                        .addOnSuccessListener(aVoid -> Toast.makeText(PostActivity.this, "Post count updated!", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e -> Toast.makeText(PostActivity.this, "Failed to update post count", Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(PostActivity.this, "Error fetching post count", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void onFragmentRemoved() {
         // Optional: Handle UI updates or logic after the fragment is removed
