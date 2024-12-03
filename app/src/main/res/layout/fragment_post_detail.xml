@@ -2,6 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/postDetails"
     android:layout_height="830dp"
     android:background="@color/white"
     android:padding="10dp">

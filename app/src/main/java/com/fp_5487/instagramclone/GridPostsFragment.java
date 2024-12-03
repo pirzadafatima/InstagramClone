@@ -112,7 +112,7 @@ public class GridPostsFragment extends Fragment {
     }
 
     private void openPostDetailFragment(Post post) {
-        PostDetailFragment postDetailFragment = new PostDetailFragment();
+        PostDetailProfile postDetailFragment = new PostDetailProfile();
         Bundle args = new Bundle();
         args.putSerializable("post", post); // Pass the post object to the fragment
         postDetailFragment.setArguments(args);
