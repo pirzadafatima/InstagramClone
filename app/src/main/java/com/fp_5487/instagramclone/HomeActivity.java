@@ -169,6 +169,15 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack(); // Pops the current fragment
+        } else {
+            super.onBackPressed(); // Exits the activity
+        }
+    }
+
 
 
 

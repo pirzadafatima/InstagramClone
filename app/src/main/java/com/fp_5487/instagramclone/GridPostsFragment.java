@@ -2,6 +2,8 @@ package com.fp_5487.instagramclone;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,7 +56,7 @@ public class GridPostsFragment extends Fragment {
 
 
         // Attach adapter to RecyclerView
-        postAdapter = new GridPostAdapter(getContext(), postList);
+        postAdapter = new GridPostAdapter(getContext(), postList, post -> openPostDetailFragment(post));
         postsRecyclerView.setAdapter(postAdapter);
 
         fetchInitialPosts();
@@ -107,6 +109,18 @@ public class GridPostsFragment extends Fragment {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private void openPostDetailFragment(Post post) {
+        PostDetailFragment postDetailFragment = new PostDetailFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("post", post); // Pass the post object to the fragment
+        postDetailFragment.setArguments(args);
+
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_profile, postDetailFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }

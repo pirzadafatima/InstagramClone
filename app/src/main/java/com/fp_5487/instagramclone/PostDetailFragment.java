@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Color;
 import android.graphics.Shader;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,10 +104,9 @@ public class PostDetailFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     // Go back to the previous fragment or activity
-                    if (getActivity() != null) {
-                        getActivity().onBackPressed();  // This will call the onBackPressed method of the activity
+                    Log.d("Postdetail", String.valueOf(requireActivity()));
+                    requireActivity().getSupportFragmentManager().popBackStack(); // This will call the onBackPressed method of the activity
                     }
-                }
             });
 
             // Load the profile image
